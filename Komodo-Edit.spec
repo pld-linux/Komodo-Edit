@@ -1,7 +1,6 @@
 # TODO:
 # - PLDize
 # - fix paths in installed files
-
 %define	buildrev	278227
 Summary:	Editor for dynamic languages including Perl, PHP, Python, Ruby and Tcl
 Summary(pl.UTF-8):	Edytor dla języków dynamicznych takich jak Perl, PHP, Python, Ruby czy Tcl
@@ -15,6 +14,9 @@ Source0:	http://downloads.activestate.com/Komodo/Linux/4.0/%{name}-%{version}-%{
 URL:		http://www.activestate.com/products/komodo_edit/
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# it says and fails: BFD: kotcllint: warning: Empty loadable segment detected, is this intentional ?
+%define		_noautostrip .*/kotcllint
 
 %description
 Award-winning editing for dynamic languages including Perl, PHP,
@@ -42,7 +44,7 @@ Linuksa, MacOS X i Windows.
 rm -rf $RPM_BUILD_ROOT
 
 sh install.sh \
-	--install-dir "$RPM_BUILD_ROOT%{_prefix}"
+	--install-dir $RPM_BUILD_ROOT%{_prefix}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
