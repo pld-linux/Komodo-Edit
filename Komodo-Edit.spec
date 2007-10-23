@@ -6,7 +6,7 @@ Summary:	Editor for dynamic languages including Perl, PHP, Python, Ruby and Tcl
 Summary(pl.UTF-8):	Edytor dla języków dynamicznych takich jak Perl, PHP, Python, Ruby czy Tcl
 Name:		Komodo-Edit
 Version:	4.0.3
-Release:	0.1
+Release:	0.2
 License:	custom
 Group:		X11/Applications/Editors
 Source0:	http://downloads.activestate.com/Komodo/Linux/4.0/%{name}-%{version}-%{buildrev}-linux-libcpp6-x86.tar.gz
@@ -17,6 +17,14 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # it says and fails: BFD: kotcllint: warning: Empty loadable segment detected, is this intentional ?
 %define		_noautostrip .*/kotcllint
+
+# firefox/thunderbird/seamonkey/komodo-edit provide their own versions
+%define		_noautoreqdep		libxpcom_compat.so libxpcom_core.so
+%define		_noautoprovfiles	%{_libdir}/%{name}/components
+# we don't want these to satisfy xulrunner-devel
+%define		_noautoprov		libmozjs.so libxpcom.so libxul.so
+# and as we don't provide them, don't require either
+%define		_noautoreq		libmozjs.so libxpcom.so libxul.so
 
 %description
 Award-winning editing for dynamic languages including Perl, PHP,
